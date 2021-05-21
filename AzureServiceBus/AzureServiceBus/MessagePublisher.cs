@@ -35,14 +35,14 @@ namespace AzureServiceBus
 
         public async Task PublishPersonInfo(Person person)
         {
-            //string msgString = JsonSerializer.Serialize(person);
-            string msgString = "{\"Message\":\"{\\\"Code\\\":\\\"TW--TG--REG--REGULATORY\\\",\\\"Path\\\":null,\\\"AlwaysRunOnNewPath\\\":false,\\\"Disabled\\\":false,\\\"Priority\\\":null}\",\"QueueName\":\"CM/Domain/Crawl/SpideringMessages_ScheduleNormal\"}";
-
+            string msgString = JsonSerializer.Serialize(person);
+          
             Console.WriteLine(msgString);
             try
             {
                 var msgObj = new Message(Encoding.UTF8.GetBytes(msgString));
                 await _queueclient.SendAsync(msgObj);
+                Console.WriteLine("message has been sent");
             }
             catch (Exception ex)
             {
